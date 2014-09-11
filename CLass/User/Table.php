@@ -19,9 +19,10 @@ Class Table
         return $this->_name;
     }
 
-    public function setPassword($password)
+    private function setPassword($password)
     {
         $this->_password = $password;
+        return $this;
     }
 
     public function getPassword()
@@ -31,7 +32,7 @@ Class Table
 
     public function setNewPassword()
     {
-        if (empty($this->_password)) {
+        if (empty($this->getPassword)) {
             $this->setPassword(md5('123456'));
         }
         return $this;

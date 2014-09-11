@@ -1,8 +1,8 @@
 <?php
-include('../../autoload.php');
+include('/autoload.php');
 
 Use \User as User;
-//Use \PHPUnit_Framework_TestCase as PHPUnit_Framework_TestCase;
+Use \PHPUnit_Framework_TestCase as PHPUnit_Framework_TestCase;
 class StackTest extends PHPUnit_Framework_TestCase{
 
 	/**
@@ -10,8 +10,8 @@ class StackTest extends PHPUnit_Framework_TestCase{
 	*/
 	private $_user;
 
-	public function setUp()
-	{
+    public function setUp()
+    {
 		$this->_user = new User\Table();
 	}
 
@@ -33,12 +33,17 @@ class StackTest extends PHPUnit_Framework_TestCase{
 
     /**
     * @depends testEnptyPassword
+    * @dataProvider additionProvider
     */
     public function testNewPassword()
-    {        
-        $this->_user->setNewPassword();
-        $this->assertEquals(md5('123546'), $this->_user->getPassword());
+    {
+        $this->assertEquals(md5('123456'));
 
     }
 
+    public function additionProvider()
+    {
+        $userTable = new User\Table();
+        return $userTable->setNewPassword()->getPassword();
+    }
 }
